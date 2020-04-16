@@ -1,5 +1,5 @@
 from typing import Dict
-from .abc.isomorphism import IsomorphismABC
+from .abc import IsomorphismABC
 
 
 class Isomorphism(IsomorphismABC):
