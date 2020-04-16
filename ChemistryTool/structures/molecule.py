@@ -1,10 +1,9 @@
 from .abc import MoleculeABC
-from ..algorithms.isomorphism import Isomorphism
-from typing import Dict
+from ..algorithms import Isomorphism
 
 
 class Molecule(Isomorphism, MoleculeABC):
-    def __init__(self, atoms: Dict, bonds: Dict):
+    def __init__(self, atoms, bonds):
         super().__init__()
         if isinstance(atoms, dict) and isinstance(bonds, dict):
             self._atoms = atoms
@@ -19,6 +18,7 @@ class Molecule(Isomorphism, MoleculeABC):
             raise IndexError
         else:
             self._atoms[number] = element
+            self._bonds[number] = {}
 
     def add_bond(self, start_atom: int, end_atom: int, bond_type: int):
         if start_atom == end_atom:
