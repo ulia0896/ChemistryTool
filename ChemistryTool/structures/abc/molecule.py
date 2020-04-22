@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 from typing import Dict
 from ...algorithms.abc import IsomorphismABC
 from ...periodictable.element import Element
+from collections import Counter
 
 
 class MoleculeABC(IsomorphismABC, ABC):
@@ -45,6 +46,12 @@ class MoleculeABC(IsomorphismABC, ABC):
     @abstractmethod
     def delete_bond(self, start_atom: int, end_atom: int):
         old_bonds = self._bonds[number]
+        try:
+            old_bonds[start_atom][end_atom] = 0
+            old_bonds[end_atom][start_atom] = 0
+        except:
+            print(("Could not delete bond between " + str(start_atom) +
+                   " and " + str(end_atom) + "."))
 
     @abstractmethod
     def update_atom(self, element: Element, number: int):
@@ -70,6 +77,10 @@ class MoleculeABC(IsomorphismABC, ABC):
 
     @abstractmethod
     def __str__(self):
+        f = Counter(self._atoms)
+        if isinstance (f, str):
+
+
         # todo:  brutto formula
         ...
 
