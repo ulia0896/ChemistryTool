@@ -1,8 +1,8 @@
 from .abc import MoleculeABC
-from ..algorithms import Isomorphism
+from ..algorithms import Isomorphism, Components
 
 
-class Molecule(Isomorphism, MoleculeABC):
+class Molecule(Isomorphism, Components, MoleculeABC):
     __slots__ = ()
 
 
