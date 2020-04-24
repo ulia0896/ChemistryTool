@@ -4,6 +4,7 @@ from abc import abstractmethod
 
 
 class Isomorphism(IsomorphismABC):
+    __slots__ = ()
     def __init__(self):
         self._atoms: Dict[int, str] = {}
 
