@@ -1,10 +1,16 @@
 from abc import ABC, abstractmethod
-from ...algorithms.abc import IsomorphismABC
+from typing import Dict
+from ...algorithms.abc import IsomorphismABC, ComponentsABC
 from ...periodictable.element import Element
 
-class MoleculeABC(IsomorphismABC, ABC):
+
+class MoleculeABC(IsomorphismABC, ComponentsABC, ABC):
+    __slots__ = ('_atoms', '_bonds', '_charges', '_backup_atoms', '_backup_bonds')
+
     def __init__(self):
-       ...
+        self._atoms: Dict[int, Element] = {}
+        self._bonds: Dict[int, Dict[int, int]] = {}
+        self._charges: Dict[int, int] = {}
 
     @abstractmethod
     def get_atom(self, number: int) -> Element:
@@ -15,7 +21,8 @@ class MoleculeABC(IsomorphismABC, ABC):
         ...
 
     @abstractmethod
-    def add_atom(self, element: Element, number: int):
+    def add_atom(self, element: Element, number: int, charge: int = 0):
+        # todo:  element.attach(self, number)
         ...
 
     @abstractmethod
@@ -40,7 +47,6 @@ class MoleculeABC(IsomorphismABC, ABC):
 
     @abstractmethod
     def __enter__(self):
-        return self
         # todo: make backup of internal data
         ...
 
@@ -50,10 +56,11 @@ class MoleculeABC(IsomorphismABC, ABC):
         self._atoms = self._backup_atoms
         self._bonds = self._backup_bonds
         del self._backup_atoms
-        del self._backup_bonds
+        ...
 
     @abstractmethod
     def __str__(self):
+        # todo:  brutto formula
         ...
 
 
