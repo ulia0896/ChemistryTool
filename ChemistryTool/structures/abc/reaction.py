@@ -5,7 +5,7 @@ from .molecule import MoleculeABC
 
 
 class MoleculeListABC(MutableSequence):
-    def __init__(self):
+    def __init__(self) -> object:
         self._data = []
 
     @abstractmethod
