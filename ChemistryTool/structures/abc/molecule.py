@@ -78,12 +78,9 @@ class MoleculeABC(IsomorphismABC, ABC):
 
     @abstractmethod
     def __str__(self):
-        f = Counter(self._atoms)
-        if isinstance (f, str):
-
-
-        # todo:  brutto formula
-        ...
+        f = dict(Counter(self._atoms))
+        print('Gross formula: ')
+        return ''.join(['{0}{1}'.format(k, v) for k, v in f.items()])
 
 
 __all__ = ['MoleculeABC']
