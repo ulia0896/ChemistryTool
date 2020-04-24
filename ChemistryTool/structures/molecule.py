@@ -1,13 +1,14 @@
 from abc import ABC, abstractmethod
 from typing import Dict
-from ...algorithms.abc import IsomorphismABC
-from ...periodictable.element import Element
+from ..algorithms.abc import IsomorphismABC
+from ..periodictable.element import Element
 from collections import Counter
+from .abc import MoleculeABC
 
 
 class Molecule(IsomorphismABC, MoleculeABC):
     def __init__(self):
-        self._atoms: Dict[int, str] = {}
+        self._atoms: Dict[int, Element] = {}
         self._bonds: Dict[int, Dict[int, int]] = {}
         self._backup_atoms: Dict[int, str] = {}
         self._backup_bonds: Dict[int, Dict[int, int]] = {}
@@ -17,8 +18,7 @@ class Molecule(IsomorphismABC, MoleculeABC):
         return self._atoms[number]
 
     def get_bond(self, start_atom: int, end_atom: int) -> int:
-        ...
-
+        return self._bonds[start_atom][end_atom]
 
     def add_atom(self, element: Element, number: int):
         if number in self._atoms:
@@ -26,7 +26,6 @@ class Molecule(IsomorphismABC, MoleculeABC):
         else:
             self._atoms[number] = element
             self._bonds[number] = {}
-
 
     def add_bond(self, start_atom: int, end_atom: int, bond_type: int):
         if start_atom == end_atom:
@@ -37,14 +36,18 @@ class Molecule(IsomorphismABC, MoleculeABC):
 
 
 
+
+
     def delete_atom(self, number: int):
-        ...
+        del self._atoms[number], self._bonds[number]
+        for k, v in self._bonds.items():
+            if number in v:
+                del self._bonds[k][number]
 
     def delete_bond(self, start_atom: int, end_atom: int):
-        old_bonds = self._bonds[number]
         try:
-            old_bonds[start_atom][end_atom] = 0
-            old_bonds[end_atom][start_atom] = 0
+            del self._bonds[start_atom][end_atom]
+            del self._bonds[end_atom][start_atom]
         except:
             print(("Could not delete bond between " + str(start_atom) +
                    " and " + str(end_atom) + "."))

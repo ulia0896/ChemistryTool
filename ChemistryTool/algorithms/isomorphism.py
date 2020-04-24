@@ -47,7 +47,7 @@ class Isomorphism(IsomorphismABC):
         path = []
         seen = set()
         starts = [(x, y) for x, y in self._atoms.items() if y == other._atoms[start]]
-        procedure =
+        procedure = []
 
         for start in starts:
             stack = []
