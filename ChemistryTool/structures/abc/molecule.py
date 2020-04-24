@@ -39,6 +39,7 @@ class MoleculeABC(IsomorphismABC, ABC):
 
 
 
+
     @abstractmethod
     def delete_atom(self, number: int):
         ...
