@@ -1,4 +1,3 @@
-from abc import ABC, abstractmethod
 from typing import Dict
 from ..algorithms.abc import IsomorphismABC
 from ..periodictable.element import Element
@@ -38,6 +37,7 @@ class Molecule(IsomorphismABC, MoleculeABC):
 
 
 
+
     def delete_atom(self, number: int):
         del self._atoms[number], self._bonds[number]
         for k, v in self._bonds.items():
@@ -61,9 +61,10 @@ class Molecule(IsomorphismABC, MoleculeABC):
 
 
     def __enter__(self):
+        self._backup_atoms = self._atoms.copy()
+        self._backup_bonds =
         return self
         # todo: make backup of internal data
-        ...
 
 
     def __exit__(self, exc_type, exc_val, exc_tb):
